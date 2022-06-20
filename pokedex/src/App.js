@@ -1,7 +1,9 @@
 import {createGlobalStyle} from 'styled-components'
 import { BrowserRouter } from "react-router-dom";
+import PokemonContext  from './contexts/Pokemons';
 
 import RoutesApp from "./Routes/routes";
+import Header from './components/Header/Header';
 
 const GlobalStyle = createGlobalStyle`
   *{
@@ -22,8 +24,11 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   return (
     <BrowserRouter className="App"> 
-      <GlobalStyle/>
-      <RoutesApp/>
+      <PokemonContext>
+        <GlobalStyle/>
+        <Header/>
+        <RoutesApp/>
+      </PokemonContext>
     </BrowserRouter>
   );
 }
