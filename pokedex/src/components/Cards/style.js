@@ -30,3 +30,9 @@ export const Title = styled.p`
     padding-bottom: 0.5rem;
     font-weight: 800;
 `
+
+export const Informations = styled.div`
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+`

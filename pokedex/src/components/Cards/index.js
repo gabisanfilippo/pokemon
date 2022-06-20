@@ -1,6 +1,6 @@
 import { PokemonContext } from "../../contexts/Pokemons";
 import React, { useContext, useEffect, useState } from "react";
-import {Container, Types, Title} from './style'
+import {Container, Types, Title, Informations} from './style'
 
 function Cards({ name }) {
   const { getPokemonByName, pokemon, getColor } = useContext(PokemonContext);
@@ -9,7 +9,7 @@ function Cards({ name }) {
   const [id, setId] = useState()
   const [color, setColor] = useState()
 
-  useEffect(async () => {
+  useEffect(() => {
     if (pokemon) {
       async function getPokemon() {
         const data = await getPokemonByName(name);
@@ -19,54 +19,56 @@ function Cards({ name }) {
         const dataColor = await getColor(id)
         setColor(dataColor.color.name)  
         console.log(dataColor.color.name)
+        switch (color) {
+          case 'black':
+            setColor('#303030');
+            break;
+          case 'blue':
+            setColor('#76bcfc');
+            break;
+          case 'green':
+            setColor('#49d0b2');
+            break;
+          case 'yellow':
+            setColor('#fdda6c');
+            break;
+          case 'red':
+            setColor('#fd6b6c');
+            break;
+          case 'brown':
+            setColor('#a78876');
+            break;
+          case 'grey':
+            setColor('#9195b0');
+            break;
+          case 'pink':
+            setColor('#f1c8cc');
+            break;
+          case 'purple':
+            setColor('#ae8eb5');
+            break;
+          case 'white':
+            setColor('#1212');
+            break;
+          case 'yellow':
+            setColor('#e8c250');
+            break;
+          default:
+            setColor('#385fa3');
+            break;
+        }
       }
-      await getPokemon();
+      getPokemon();
+      
     }
-    switch (color) {
-      case 'black':
-        setColor('#303030');
-        break;
-      case 'blue':
-        setColor('#76bcfc');
-        break;
-      case 'green':
-        setColor('#49d0b2');
-        break;
-      case 'yellow':
-        setColor('#fdda6c');
-        break;
-      case 'red':
-        setColor('#fd6b6c');
-        break;
-      case 'brown':
-        setColor('#a78876');
-        break;
-      case 'grey':
-        setColor('#9195b0');
-        break;
-      case 'pink':
-        setColor('#f1c8cc');
-        break;
-      case 'purple':
-        setColor('#ae8eb5');
-        break;
-      case 'white':
-        setColor('#1212');
-        break;
-      case 'yellow':
-        setColor('#e8c250');
-        break;
-      default:
-        setColor('#385fa3');
-        break;
-    }
+    
   }, []); 
   
 
 
   return (
     <Container color={color}>
-      <div>
+      <Informations>
         <p>#{id}</p>
         <Title>{name}</Title>
         <Types>
@@ -74,7 +76,7 @@ function Cards({ name }) {
             return <p>{index.type.name}</p>;
           })}
         </Types>
-      </div>
+      </Informations>
       <div>
         <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${id}.gif`} alt={name} />
       </div>
