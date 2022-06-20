@@ -1,9 +1,9 @@
 import { PokemonContext } from "../../contexts/Pokemons";
 import React, { useContext, useEffect, useState } from "react";
-import {Container, Types, Title, Informations} from './style'
+import {Container, Types, Title, Informations, Image} from './style'
 
 function Cards({ name }) {
-  const { getPokemonByName, pokemon, getColor } = useContext(PokemonContext);
+  const { getPokemonByName, pokemon, getColor, offset } = useContext(PokemonContext);
   const [types, setTypes] = useState();
   const [sprites, setSprites] = useState('');
   const [id, setId] = useState()
@@ -17,9 +17,7 @@ function Cards({ name }) {
         setSprites(data.sprites);
         setId(data.id)
         const dataColor = await getColor(id)
-        setColor(dataColor.color.name)  
-        console.log(dataColor.color.name)
-        switch (color) {
+        switch (dataColor.color.name) {
           case 'black':
             setColor('#303030');
             break;
@@ -62,7 +60,7 @@ function Cards({ name }) {
       
     }
     
-  }, []); 
+  }, [offset]); 
   
 
 
@@ -78,7 +76,7 @@ function Cards({ name }) {
         </Types>
       </Informations>
       <div>
-        <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${id}.gif`} alt={name} />
+        <Image src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${id}.gif`} alt={name} />
       </div>
     </Container>
   );

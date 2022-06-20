@@ -8,6 +8,7 @@ export const Container = styled.div`
     height: 8rem;
     box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.88);
     background-color: ${props => props.color}
+    
 `
 
 export const Types = styled.div`
@@ -35,4 +36,8 @@ export const Informations = styled.div`
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
+`
+
+export const Image = styled.img`
+    width: 5rem;
 `

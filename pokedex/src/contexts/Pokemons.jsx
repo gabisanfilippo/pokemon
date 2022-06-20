@@ -5,15 +5,19 @@ export const PokemonContext = createContext({})
 
 export default function PokemonProvider({children}){
     const [pokemon, setPokemon] = useState()
+    const [limit, setLimit] = useState(30)
+    const [offset, setOffset] = useState(0)
+    const [resultsLimited, setResultsLimited] = useState()
 
     useEffect(()=>{
-        async function getPokemon(){
-            let response = await pokeAPI.get('pokemon')
+        async function getPokemon(limit,offset){
+            let response = await pokeAPI.get(`pokemon?limit=${limit}&offset=${offset}`)
             setPokemon(response.data.results)
+            setResultsLimited(response.data.count)
             
         }
-        getPokemon()
-    },[])
+        getPokemon(limit, offset)
+    },[offset])
 
     async function getPokemonByName(name){
         let response = await pokeAPI.get(`pokemon/${name}`)
@@ -21,7 +25,7 @@ export default function PokemonProvider({children}){
     }
 
     async function getColor(id){
-        let response = await pokeAPI.get(`pokemon-species/${id}/`)
+        let response = await pokeAPI.get(`pokemon-species/${id}`)
         return response.data
     }
 
@@ -30,7 +34,12 @@ export default function PokemonProvider({children}){
             value={{
                 pokemon,
                 getPokemonByName,
-                getColor
+                getColor,
+                setLimit,
+                setOffset,
+                limit,
+                offset,
+                resultsLimited
             }}
         >
             {children}

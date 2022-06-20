@@ -2,6 +2,7 @@ import { PokemonContext } from "../contexts/Pokemons"
 import { useContext } from "react"
 import Cards from "../components/Cards"
 import styled from "styled-components"
+import Pagination from "../components/Pagination"
 
 const Container = styled.div`
     display: flex;
@@ -13,16 +14,19 @@ const Container = styled.div`
 function Home(){
     const {pokemon} = useContext(PokemonContext)
     return(
-        <Container>
-            {pokemon?.map((index)=>{
-                return(
-                    <Cards 
-                        key={index.name}
-                        name={index.name}
-                    />
-                )
-            })}
-        </Container> 
+        <>
+            <Pagination/>
+            <Container>
+                {pokemon?.map((index)=>{
+                    return(
+                        <Cards 
+                            key={index.name}
+                            name={index.name}
+                        />
+                    )
+                })}
+            </Container>
+        </> 
     )
 }
 export default Home
