@@ -1,5 +1,5 @@
 import { PokemonContext } from "../../contexts/Pokemons";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import {Container, Types, Title, Informations, Image} from './style'
 
 function Cards({ name }) {
@@ -9,6 +9,41 @@ function Cards({ name }) {
   const [id, setId] = useState()
   const [color, setColor] = useState()
 
+  const memo = useMemo(()=>{
+    if(color == 'green'){
+      return '#49d0b2'
+    }
+    if(color == 'black'){
+      return '#303030'
+    }
+    if(color == 'blue'){
+      return '#76bcfc'
+    }
+    if(color == 'yellow'){
+      return '#fdda6c'
+    }
+    if(color == 'red'){
+      return '#fd6b6c'
+    }
+    if(color == 'brown'){
+      return '#a78876'
+    }
+    if(color == 'grey'){
+      return '#9195b0'
+    }
+    if(color == 'pink'){
+      return '#f1c8cc'
+    }
+    if(color == 'purple'){
+      return '#ae8eb5'
+    }
+    if(color == 'white'){
+      return '#1212'
+    } else {
+      return '#385fa3'
+    }
+  },[])
+
   useEffect(() => {
     if (pokemon) {
       async function getPokemon() {
@@ -17,51 +52,16 @@ function Cards({ name }) {
         setSprites(data.sprites);
         setId(data.id)
         const dataColor = await getColor(id)
-        switch (dataColor.color.name) {
-          case 'black':
-            setColor('#303030');
-            break;
-          case 'blue':
-            setColor('#76bcfc');
-            break;
-          case 'green':
-            setColor('#49d0b2');
-            break;
-          case 'yellow':
-            setColor('#fdda6c');
-            break;
-          case 'red':
-            setColor('#fd6b6c');
-            break;
-          case 'brown':
-            setColor('#a78876');
-            break;
-          case 'grey':
-            setColor('#9195b0');
-            break;
-          case 'pink':
-            setColor('#f1c8cc');
-            break;
-          case 'purple':
-            setColor('#ae8eb5');
-            break;
-          case 'white':
-            setColor('#1212');
-            break;
-          case 'yellow':
-            setColor('#e8c250');
-            break;
-          default:
-            setColor('#385fa3');
-            break;
-        }
+        console.log(dataColor)
+        setColor(dataColor.color.name)
+        setColor(memo)
+        
       }
       getPokemon();
+      /* console.log(color) */
       
     }
-    
-    
-  }, [offset, getColor]); 
+  },[offset, getColor, pokemon]); 
   
 
 

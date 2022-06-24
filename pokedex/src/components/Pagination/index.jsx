@@ -14,7 +14,6 @@ function Pagination(){
         setPageActual(memo)
     },[memo])
     
-    console.log(memo)
     useEffect(()=>{
         
         let count = (resultsLimited / limit)
