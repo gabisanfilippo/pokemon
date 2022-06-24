@@ -60,7 +60,8 @@ function Cards({ name }) {
       
     }
     
-  }, [offset]); 
+    
+  }, [offset, getColor]); 
   
 
 
